@@ -1,0 +1,66 @@
+import mongoose from "mongoose";
+
+const guildConfigSchema = new mongoose.Schema({
+	
+  enable: { type: Boolean, default: true },
+  prefix: { type: String, default: "." },
+  
+  guildId: { type: String, unique: true },
+  
+  logChannelId: { type: String, default: null },
+  jailRoleId: { type: String, default: null },
+  
+  punishmentType: { 
+	  type: String, 
+	  enum: ["no-choice", "ban", "kick", "jail", "remove-roles", "remove-authorities", "remove-authorities-and-roles-give-jail", "disable-role-authorities", "ban-and-disable-guild-authorities"], 
+	  required: true,
+	  default: "ban",
+  },
+  
+  limit: { type: Number, default: 0 },
+  
+  roleDeleteGuard: { type: Boolean, default: true },
+  roleUpdateGuard: { type: Boolean, default: true },
+  
+  channelDeleteGuard: { type: Boolean, default: true },
+  channelUpdateGuard: { type: Boolean, default: true },
+  
+  botAddGuard: { type: Boolean, default: true },
+  webGuard: { type: Boolean, default: false },
+  memberRoleGuard: { type: Boolean, default: true },
+  
+  guildUrlGuard: { type: Boolean, default: true },
+  guildUpdateGuard: { type: Boolean, default: true },
+  
+  kickGuard: { type: Boolean, default: true },
+  banGuard: { type: Boolean, default: true },
+  kickBanLimitGuard: { type: Boolean, default: true },
+  
+  messageCommandExecuter: { type: Boolean, default: true },
+  slashCommandExecuter: { type: Boolean, default: true },
+  
+  isAuthorityEnable: {
+    type: Boolean,
+    default: true,
+  },
+  isAuthorities: {
+    type: Boolean,
+    default: true,
+  },
+  authorities: {
+    type: [String],
+    default: [],
+  },
+  members: {
+    type: [String],
+    default: [],
+  },
+  roles: {
+    type: [String],
+    default: [],
+  },
+
+  
+}, { versionKey: false });
+
+export default mongoose.model("GuildConfig", guildConfigSchema);
